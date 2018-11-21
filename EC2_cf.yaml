@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Create an Amazon Linux EC2 instance with some default settings'
+Resources:
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: 'ami-017b0e29fac27906b' #Amazon Linux 2 AMI 2.0.20181024 x86_64 HVM gp2
+      InstanceType: t3.nano
+      SecurityGroups:
+      - Ref: InstanceSecurityGroup
+      KeyName: 78596
+      Tags:
+        - Key: Owner
+          Value: rob78596
+        - Key: Name
+          Value: rob78596
+  InstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: SSH access via port 22
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: '22'
+        ToPort: '22'
+        CidrIp: 35.0.0.0/8
+Outputs:
+  InstanceId:
+    Description: InstanceId of the newly created EC2 instance
+    Value:
+      Ref: EC2Instance
+  PublicIP:
+    Description: Public IP address of the newly created EC2 instance
+    Value:
+      Fn::GetAtt:
+      - EC2Instance
+      - PublicIp
