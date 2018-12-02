@@ -4,7 +4,7 @@ Resources:
   EC2Instance:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: 'ami-017b0e29fac27906b' #Amazon Linux 2 AMI 2.0.20181024 x86_64 HVM gp2
+      ImageId: 'ami-0274e11dced17bb5b' #Amazon Linux 2 AMI 2.0.20181114 x86_64 HVM gp2
       InstanceType: t3.nano
       SecurityGroups:
       - Ref: InstanceSecurityGroup
