@@ -1,10 +1,16 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: 'Create an Amazon Linux EC2 instance with some default settings'
+Description: 'Create an Amazon Linux 2 EC2 instance with some default settings'
+
+Parameters:
+  AmazonLinuxAMIID:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+
 Resources:
   EC2Instance:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: 'ami-0274e11dced17bb5b' #Amazon Linux 2 AMI 2.0.20181114 x86_64 HVM gp2
+      ImageId: !Ref AmazonLinuxAMIID
       InstanceType: t3.nano
       SecurityGroups:
       - Ref: InstanceSecurityGroup
@@ -23,6 +29,7 @@ Resources:
         FromPort: '22'
         ToPort: '22'
         CidrIp: 35.0.0.0/8
+
 Outputs:
   InstanceId:
     Description: InstanceId of the newly created EC2 instance
