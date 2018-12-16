@@ -7,37 +7,35 @@ Parameters:
     Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
 
 Resources:
-  EC2Instance:
+  MyEC2Instance:
     Type: AWS::EC2::Instance
     Properties:
       ImageId: !Ref AmazonLinuxAMIID
       InstanceType: t3.nano
       SecurityGroups:
-      - Ref: InstanceSecurityGroup
+      - Ref: MySecurityGroup
       KeyName: 78596
       Tags:
         - Key: Owner
           Value: rob78596
         - Key: Name
           Value: rob78596
-  InstanceSecurityGroup:
+  MySecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupDescription: SSH access via port 22
+      GroupDescription: SSH port 22
       SecurityGroupIngress:
       - IpProtocol: tcp
         FromPort: '22'
         ToPort: '22'
-        CidrIp: 35.0.0.0/8
+        CidrIp: 52.0.0.0/8
 
 Outputs:
   InstanceId:
-    Description: InstanceId of the newly created EC2 instance
     Value:
-      Ref: EC2Instance
+      Ref: MyEC2Instance
   PublicIP:
-    Description: Public IP address of the newly created EC2 instance
     Value:
       Fn::GetAtt:
-      - EC2Instance
+      - MyEC2Instance
       - PublicIp
