@@ -4,3 +4,7 @@ Resources:
     Type: 'AWS::S3::Bucket'
     Properties:
       BucketName: rob78596test3
+      AccessControl: PublicRead
+      Tags:
+        - Key: Owner
+          Value: rob78596
